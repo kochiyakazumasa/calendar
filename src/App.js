@@ -8,6 +8,7 @@ import Settings from './components/js/Settings';
 import UserProfile from './components/js/UserProfile';
 import Login from './components/js/Login';
 import ClassManagement from './components/js/ClassManagement';
+import ChatBot from './components/js/ChatBot';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
 function App() {
@@ -17,6 +18,7 @@ function App() {
     const [showAddClass, setShowAddClass] = useState(false);
     const [currentPage, setCurrentPage] = useState('calendar');
     const [theme, setTheme] = useState('light');
+    const [showChat, setShowChat] = useState(false);
 
     // テーマの変更を監視して適用
     useEffect(() => {
@@ -169,11 +171,21 @@ function App() {
                                     <Settings onThemeChange={handleThemeChange} currentTheme={theme} />
                                 ) : currentPage === 'class-management' ? (
                                     <ClassManagement userType={user.type} />
+                                ) : currentPage === 'chatbot' ? (
+                                    <ChatBot schedule={schedule} />
                                 ) : null
                             } />
                         </Routes>
                     </main>
                 </div>
+                <button 
+                    className="chat-toggle-button"
+                    onClick={() => setShowChat(!showChat)}
+                >
+                    {showChat ? '✕' : '💬'}
+                </button>
+                
+                {showChat && <ChatBot schedule={schedule} />}
             </div>
         </Router>
     );
