@@ -15,7 +15,12 @@ function ChatBot() {
         }
     ]);
     const [newMessage, setNewMessage] = useState('');
+    const [isMinimized, setIsMinimized] = useState(false);
     const messagesEndRef = useRef(null);
+
+    const toggleMinimize = () => {
+        setIsMinimized(!isMinimized);
+    };
 
     const scrollToBottom = () => {
         messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
@@ -51,14 +56,18 @@ function ChatBot() {
     };
 
     return (
-        <div className="chat-container">
-            <ChatHeader />
-            <ChatMessages messages={messages} messagesEndRef={messagesEndRef} />
-            <ChatInput
-                newMessage={newMessage}
-                setNewMessage={setNewMessage}
-                handleSendMessage={handleSendMessage}
-            />
+        <div className={`chat-container ${isMinimized ? 'minimized' : ''}`}>
+            <ChatHeader isMinimized={isMinimized} toggleMinimize={toggleMinimize} />
+            {!isMinimized && (
+                <>
+                    <ChatMessages messages={messages} messagesEndRef={messagesEndRef} />
+                    <ChatInput
+                        newMessage={newMessage}
+                        setNewMessage={setNewMessage}
+                        handleSendMessage={handleSendMessage}
+                    />
+                </>
+            )}
         </div>
     );
 }
