@@ -8,6 +8,7 @@ import Settings from './components/js/Settings';
 import UserProfile from './components/js/UserProfile';
 import Login from './components/js/Login';
 import ClassManagement from './components/js/ClassManagement';
+import ChatBot from './components/js/ChatBot';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
 function App() {
@@ -174,6 +175,7 @@ function App() {
                         </Routes>
                     </main>
                 </div>
+                {user && <ChatBot />}
             </div>
         </Router>
     );
